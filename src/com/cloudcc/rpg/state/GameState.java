@@ -4,6 +4,7 @@ import com.cloudcc.rpg.Game;
 import com.cloudcc.rpg.entities.creature.Player;
 import com.cloudcc.rpg.gfx.Assets;
 import com.cloudcc.rpg.tiles.Tile;
+import com.cloudcc.rpg.worlds.World;
 
 import java.awt.*;
 
@@ -13,23 +14,24 @@ import java.awt.*;
 public class GameState extends State{
 
     private Player player;
+    private World world;
 
     public GameState(Game game){
         super(game);
         player = new Player(game, 100, 100);
-
+        world = new World("res/worlds/world1.txt");
     }
 
     @Override
     public void render(Graphics g) {
+        world.render(g);
         player.render(g);
-        Tile.tiles[0].render(g, 0, 0);
-      ;
+ ;
     }
 
     @Override
     public void tick() {
-
+        world.tick();
         player.tick();
 
     }
