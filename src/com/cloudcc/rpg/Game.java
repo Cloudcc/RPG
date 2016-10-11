@@ -2,6 +2,7 @@ package com.cloudcc.rpg;
 
 import com.cloudcc.rpg.display.Display;
 import com.cloudcc.rpg.gfx.Assets;
+import com.cloudcc.rpg.gfx.GameCamera;
 import com.cloudcc.rpg.gfx.ImageLoader;
 import com.cloudcc.rpg.gfx.SpriteSheet;
 import com.cloudcc.rpg.input.KeyManager;
@@ -19,7 +20,7 @@ import java.awt.image.BufferedImage;
 public class Game implements Runnable {
 
     private Display display;
-    public int width, height;
+    private int width, height;
     public String title;
 
     private boolean running = false;
@@ -36,6 +37,9 @@ public class Game implements Runnable {
     //Input
     private KeyManager keyManager;
 
+    //Camera
+    private GameCamera gameCamera;
+
 
 
     public Game(String title, int width, int height){
@@ -51,6 +55,8 @@ public class Game implements Runnable {
         display = new Display(title, width, height);
         display.getFrame().addKeyListener(keyManager);
         Assets.init();
+
+        gameCamera = new GameCamera(this, 0, 0);
 
         gameState = new GameState(this);
         menuState = new MenuState(this);
@@ -132,6 +138,10 @@ public class Game implements Runnable {
         return keyManager;
     }
 
+    public GameCamera getGameCamera(){
+        return gameCamera;
+    }
+
     public synchronized void start(){
 
         if(running) return;
@@ -149,5 +159,13 @@ public class Game implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getWidth(){
+        return width;
+    }
+
+    public int getHeight(){
+        return height;
     }
 }

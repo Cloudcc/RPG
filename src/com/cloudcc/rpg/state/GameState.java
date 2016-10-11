@@ -18,8 +18,9 @@ public class GameState extends State{
 
     public GameState(Game game){
         super(game);
-        player = new Player(game, 100, 100);
-        world = new World("res/worlds/world1.txt");
+        player = new Player(game, 0, 0);
+        world = new World(game, "res/worlds/world1.txt");
+
     }
 
     @Override
@@ -33,6 +34,7 @@ public class GameState extends State{
     public void tick() {
         world.tick();
         player.tick();
+
 
     }
 }

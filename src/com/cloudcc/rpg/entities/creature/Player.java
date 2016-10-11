@@ -10,27 +10,38 @@ import java.awt.*;
  */
 public class Player extends Creature {
 
-    private Game game;
     public Player(Game game, float x, float y){
-        super(x,y);
-        this.game = game;
+        super(game,x,y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
     }
 
     @Override
     public void tick() {
-        if(game.getKeyManager().up)
-            y -= 1;
-        if(game.getKeyManager().down)
-            y += 1;
-        if(game.getKeyManager().left)
-            x -= 1;
-        if(game.getKeyManager().right)
-            x += 1;
+        getInput();
+        move();
+        game.getGameCamera().centerOnEntity(this);
+
     }
+
+    private void getInput(){
+        xMove = 0;
+        yMove = 0;
+
+        if(game.getKeyManager().up)
+            yMove -= speed;
+        if(game.getKeyManager().down)
+            yMove += speed;
+        if(game.getKeyManager().left)
+            xMove -= speed;
+        if(game.getKeyManager().right)
+            xMove += speed;
+    }
+
+
+
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.player1, (int) x, (int) y, null);
+        g.drawImage(Assets.player1, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), null);
     }
 
 
