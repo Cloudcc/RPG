@@ -3,6 +3,7 @@ package com.cloudcc.rpg.state;
 import com.cloudcc.rpg.Game;
 import com.cloudcc.rpg.entities.creature.Player;
 import com.cloudcc.rpg.gfx.Assets;
+import com.cloudcc.rpg.tiles.Tile;
 
 import java.awt.*;
 
@@ -22,6 +23,8 @@ public class GameState extends State{
     @Override
     public void render(Graphics g) {
         player.render(g);
+        Tile.tiles[0].render(g, 0, 0);
+      ;
     }
 
     @Override
